@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">Recipe Book</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navigation">
+                <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+                <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+            </ul>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <ng-template [ngIf]="!authService.isAuthenticated()">
+                <li><a routerLink="sign-up"
+                       id="register">
+                        Register
+                    </a>
+                </li>
+
+                <li><a routerLink="sign-in"
+                       id="register">
+                        Log In
+                    </a>
+                </li>
+            </ng-template>
+            
+            
+            <ng-template [ngIf]="authService.isAuthenticated()">
+                <li id="logOut"
+                    (click)="logOut()">
+                    <a>Log Out</a>
+                </li>
+                
+            
+                <li class="dropdown"  [appDropdown]='menu'>
+                        <a class="dropdown-toggle"
+                            role="button"
+                            style="color: white;">Manage</a>
+                        <ul class="dropdown-menu" #menu>
+                            <li (click)="saveRecipe()"><a>Saving Data</a></li>
+                            <li (click)="fetchRecipes()"><a>Fetching Data</a></li>
+                        </ul>
+                </li>
+            </ng-template>          
+        </ul>
+    </div>
+</nav>

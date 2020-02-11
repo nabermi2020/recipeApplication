@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <button class="btn btn-success"
+                            type="submit"
+                            [disabled]="!editForm.valid">
+                        {{ editMode ? 'Update' : 'Save' }}
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-danger"
+                            (click)="onCancel()">
+                        Cancel
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            *ngIf="editMode"
+                            (click)="deleteCurrentRecipe()">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text"
+                               id="name"
+                               class="form-control"
+                               formControlName="name">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label for="imagePath">Image URL:</label>
+                        <input type="text"
+                               id="imagePath"
+                               class="form-control"
+                               formControlName="imageUrl"
+                               #imagePath>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                       <img [src]="imagePath.value" 
+                            class="img-responsive"
+                            style="max-width: 300px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea type="text"
+                               id="description"
+                               class="form-control"
+                               rows="6"
+                               formControlName="description">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-12" 
+                     formArrayName="ingredients">
+                    <div class="row"
+                         [formGroupName]="i"
+                         *ngFor="let ingredient of editForm.get('ingredients').controls; let i = index">
+                        <div class="col-xs-8 col-md-8 ingridList">
+                            <input type="text"
+                                   class="form-control"
+                                   formControlName="name">   
+                        </div>
+
+                        <div class="col-xs-2 col-md-2">
+                            <input type="text"
+                                   class="form-control"
+                                   formControlName="amount">
+                        </div>
+
+                        <div class="col-xs-2 col-md-2">
+                            <button class="btn btn-danger"
+                                    (click)="onDeleteIngredient(i)">
+                            X
+                        </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <hr>
+                            <button class="btn btn-success"
+                                    (click)="addIngredient()">Add Ingredient</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

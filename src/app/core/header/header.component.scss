@@ -1,0 +1,36 @@
+.navigation {
+  li {
+    margin-left: 15px;
+
+    a {
+      text-decoration: none;
+      color: white;
+      margin-left: 15px;
+    }
+
+
+   
+  }
+
+  .active {
+    a {
+      color: rgb(95, 170, 196);
+      font-weight: bold;
+    }
+  }
+}
+
+
+#register {
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+  margin-left: 15px;
+}
+
+#logOut {
+  margin-right: 15px;
+  text-decoration: none;
+  color: white;
+  margin-left: 15px;
+}

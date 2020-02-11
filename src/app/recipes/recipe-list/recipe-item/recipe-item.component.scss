@@ -1,0 +1,13 @@
+a {
+  margin-top: 15px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(214, 145, 143);
+  }
+}
+
+.selected {
+  background-color: rgb(214, 145, 143);
+  color: white;
+}
