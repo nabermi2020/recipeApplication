@@ -26,13 +26,6 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
-  public addIngredientsToList(ingredient: Ingredient) {
-    // this.ingredients.push(ingredient);
-    // this.onIngredientAdded.next(this.ingredients.slice());
-
-    this.store.dispatch(new ShoppingListActions.addIngredient(ingredient));
-  }
-
   public addIngredientsFromRecipeToList(ingredients: Array<Ingredient>): void {
       // this.ingredients.push(...ingredients);
       // this.onIngredientAdded.next(this.ingredients.slice());
@@ -44,12 +37,14 @@ export class ShoppingListService {
   }
 
   public updateIngredient(index: number, updatedIngredient: Ingredient): void {
-    this.ingredients[index] = updatedIngredient;
-    this.onIngredientAdded.next(this.ingredients.slice());
+    // this.ingredients[index] = updatedIngredient;
+    // this.onIngredientAdded.next(this.ingredients.slice());
+    this.store.dispatch(new ShoppingListActions.updateIngredient({index: index, ingredient: updatedIngredient}));
   }
 
   public deleteIngredient(index: number) {
-    this.ingredients.splice(index, 1);
-    this.onIngredientAdded.next(this.ingredients.slice());
+    // this.ingredients.splice(index, 1);
+    // this.onIngredientAdded.next(this.ingredients.slice());
+    this.store.dispatch(new ShoppingListActions.deleteIngredient({index}));
   }
 }
