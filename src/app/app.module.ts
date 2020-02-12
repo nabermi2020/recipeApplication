@@ -1,20 +1,16 @@
 import { CoreModule } from './core/core.module';
-import { AuthRoutingModule } from './auth/auth-routing.module';
 import { AuthModule } from './auth/auth.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { AuthGuardService } from './auth/services/auth-guard.service';
-import { AuthService } from './auth/services/auth.service';
-import { DataStoreService } from './shared/data-store.service';
+import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RecipeService } from './recipes/services/recipe.service';
-import { ShoppingListService } from './shopping-list/services/shopping-list.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RecipesModule } from './recipes/recipe.module';
 import { SharedModule } from './shared/shared.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 
 @NgModule({
   declarations: [
@@ -28,7 +24,9 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    StoreModule.forRoot({shoppingList: ShoppingListReducer}),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
  
