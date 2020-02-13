@@ -12,6 +12,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 import { reducers } from './store/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/auth.effects';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { reducers } from './store/app.reducers';
     AuthModule,
     CoreModule,
     StoreModule.forRoot(reducers),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [
  

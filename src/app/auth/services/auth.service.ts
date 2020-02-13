@@ -5,6 +5,8 @@ import * as firebase from 'firebase';
 import * as fromAuth from './../store/auth.actions';
 import * as fromApp from './../../store/app.reducers';
 import { Store } from '@ngrx/store';
+ 
+ 
 
 @Injectable()
 export class AuthService {
@@ -15,23 +17,26 @@ export class AuthService {
                 private store: Store<fromApp.AppState>) {}
 
     public signUpUser(email: string, password: string): void {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(
                 user => {
                     console.log(user);
-                    this.store.dispatch( new fromAuth.signUp());
-                    firebase.auth().currentUser.getIdToken().
-                        then(
-                            (token: string) => {
-                                this.router.navigate(['recipes']);
-                                this.store.dispatch( new fromAuth.setToken(token));
-                            }
-                        );
+                    //this.store.dispatch( new fromAuth.signUp());
+                    // firebase.auth().currentUser.getIdToken().
+                    //     then(
+                    //         (token: string) => {
+                    //             tokens = token;
+                    //             this.router.navigate(['recipes']);
+                    //             //this.store.dispatch( new fromAuth.setToken(token));
+                    //         }
+                    //     );
                 }   
             )
             .catch((error) => {
                 console.log(error);
             })
+         
+            
     }
 
     public signInUser(email: string, password: string): void {

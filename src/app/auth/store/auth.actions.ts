@@ -1,9 +1,16 @@
 import { Action } from "@ngrx/store";
 
+export const TRY_SIGN_UP = "[AUTH] TRY_SIGN_UP";
 export const SIGN_IN = "[AUTH] SIGN_IN";
 export const SIGN_UP = "[AUTH] SIGN_UP";
 export const LOG_OUT = "[AUTH] LOG_OUT";
 export const SET_TOKEN = "[AUTH] SET_TOKEN";
+
+export class trySignUp implements Action {
+    readonly type = TRY_SIGN_UP;
+
+    constructor(public payload: {username: string, password: string}) {}
+  }
 
 export class signIn implements Action {
   readonly type = SIGN_IN;
@@ -26,4 +33,5 @@ export class setToken implements Action {
 export type AuthActions = signIn |
                           signUp |
                           logOut |
-                          setToken;
+                          setToken | 
+                          trySignUp;
