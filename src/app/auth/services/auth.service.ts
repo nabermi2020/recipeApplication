@@ -80,6 +80,6 @@ export class AuthService {
     public logOut(): void {
         firebase.auth().signOut();
         this.store.dispatch( new fromAuth.logOut());
-        this.router.navigate(['recipes']);
+        this.router.navigate(['/']);
     }
 }

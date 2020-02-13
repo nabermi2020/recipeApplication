@@ -1,5 +1,5 @@
 import { Effect, createEffect, Actions, ofType } from "@ngrx/effects";
-import { switchMap, mergeMap, map } from "rxjs/operators";
+import { switchMap, mergeMap, map, tap } from "rxjs/operators";
 import { AuthService } from "../services/auth.service";
 import * as AuthActions from "./../store/auth.actions";
 import * as firebase from "firebase";
@@ -50,6 +50,7 @@ export class AuthEffects {
     )
   );
 
+  @Effect()
   authSignIn$ = createEffect(() => 
     this.actions$.pipe(
         ofType("[AUTH] TRY_SIGN_IN"),
@@ -76,4 +77,6 @@ export class AuthEffects {
         })
     )
   );
+
+ 
 }
