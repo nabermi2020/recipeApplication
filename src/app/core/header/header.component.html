@@ -12,7 +12,7 @@
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-            <ng-template [ngIf]="!authService.isAuthenticated()">
+            <ng-template [ngIf]="!(isAuthenticated | async).authenticated">
                 <li><a routerLink="sign-up"
                        id="register">
                         Register
@@ -27,7 +27,7 @@
             </ng-template>
             
             
-            <ng-template [ngIf]="authService.isAuthenticated()">
+            <ng-template [ngIf]="(isAuthenticated | async).authenticated">
                 <li id="logOut"
                     (click)="logOut()">
                     <a>Log Out</a>
@@ -36,8 +36,8 @@
             
                 <li class="dropdown"  [appDropdown]='menu'>
                         <a class="dropdown-toggle"
-                            role="button"
-                            style="color: white;">Manage</a>
+                           role="button"
+                           style="color: white;">Manage</a>
                         <ul class="dropdown-menu" #menu>
                             <li (click)="saveRecipe()"><a>Saving Data</a></li>
                             <li (click)="fetchRecipes()"><a>Fetching Data</a></li>

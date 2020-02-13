@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import { reducers } from './store/app.reducers';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducer
     SharedModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot({shoppingList: ShoppingListReducer}),
+    StoreModule.forRoot(reducers),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [

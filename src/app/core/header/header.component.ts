@@ -1,6 +1,10 @@
 import { AuthService } from '../../auth/services/auth.service';
 import { RecipeService } from '../../recipes/services/recipe.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as fromApp from './../../store/app.reducers';
+import { Observable } from 'rxjs';
+import * as authState from './../../auth/store/auth.reducers';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +13,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   public isUserAuthenticated: boolean = false;
+  public isAuthenticated: Observable<authState.State>;
 
   constructor(private recipeService: RecipeService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     // this.authService.isUserAuthenticated.subscribe(
@@ -20,6 +26,7 @@ export class HeaderComponent implements OnInit {
     //     console.log(this.isUserAuthenticated);
     //   }
     // )
+    this.isAuthenticated = this.store.select('auth');
   }
 
    public saveRecipe(): void {
