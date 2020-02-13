@@ -44,15 +44,15 @@ export class AuthService {
             .then(
                 (response) => {
                     console.log(response);
-                    firebase.auth().currentUser.getIdToken().
-                        then(
-                            (token: string) => {
-                                this.router.navigate(['recipes']);
-                                this.store.dispatch( new fromAuth.signIn());
-                                this.store.dispatch( new fromAuth.setToken(token));
-                            }
-                        );
-                }
+                //     firebase.auth().currentUser.getIdToken().
+                //         then(
+                //             (token: string) => {
+                //                 this.router.navigate(['recipes']);
+                //                 this.store.dispatch( new fromAuth.signIn());
+                //                 this.store.dispatch( new fromAuth.setToken(token));
+                //             }
+                //         );
+                 }
             ).
             catch(
                 (error) => {
