@@ -20,6 +20,13 @@ export class AuthService {
                 user => {
                     console.log(user);
                     this.store.dispatch( new fromAuth.signUp());
+                    firebase.auth().currentUser.getIdToken().
+                        then(
+                            (token: string) => {
+                                this.router.navigate(['recipes']);
+                                this.store.dispatch( new fromAuth.setToken(token));
+                            }
+                        );
                 }   
             )
             .catch((error) => {
@@ -35,11 +42,9 @@ export class AuthService {
                     firebase.auth().currentUser.getIdToken().
                         then(
                             (token: string) => {
-                                // this.token = token;
                                 this.router.navigate(['recipes']);
                                 this.store.dispatch( new fromAuth.signIn());
                                 this.store.dispatch( new fromAuth.setToken(token));
-                                console.log(this.token);
                             }
                         );
                 }
@@ -70,6 +75,6 @@ export class AuthService {
     public logOut(): void {
         firebase.auth().signOut();
         this.store.dispatch( new fromAuth.logOut());
-        // this.token = null;
+        this.router.navigate(['recipes']);
     }
 }
