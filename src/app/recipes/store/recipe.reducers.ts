@@ -27,7 +27,39 @@ export function RecipeReducers(state = initialState, action: RecipeActions.Recip
             }
         }
 
-        
+        case (RecipeActions.SET_RECIPES): {
+            return {
+                ...state,
+                recipes: [...action.payload]
+            }
+        }
+
+        case (RecipeActions.UPDATE_RECIPE): {
+            const recipe = state.recipes[action.payload.index];
+            const updatedRecipe = {
+                ...recipe,
+                ...action.payload.recipe
+            };
+
+            const recipes = [...state.recipes];
+            recipes[action.payload.index] = updatedRecipe;
+            
+            return {
+                ...state,
+                recipes: recipes
+            }
+        }
+
+        case (RecipeActions.DELETE_RECIPE): {
+            const recipes = [...state.recipes];
+            recipes.splice(action.payload, 1);
+            
+            return {
+                ...state,
+                recipes: recipes
+            }
+        }
+
         default:
             return state;
     }
