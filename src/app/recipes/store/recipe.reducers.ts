@@ -19,5 +19,16 @@ const initialState = {
 };
 
 export function RecipeReducers(state = initialState, action: RecipeActions.RecipeActions) {
-    return state;
+    switch(action.type) {
+        case (RecipeActions.ADD_RECIPE): {
+            return {
+                ...state,
+                recipes: [...state.recipes, action.payload]
+            }
+        }
+
+        
+        default:
+            return state;
+    }
 }

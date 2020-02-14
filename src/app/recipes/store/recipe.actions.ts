@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Recipe } from '../recipe.model';
 
 // export const ADD_INGREDIENTS = '[RECIPES] ADD_INGREDIENTS';
-export const ADD_RECIPE = '[RECIPES] ADD_INGREDIENTS';
+export const ADD_RECIPE = '[RECIPES] ADD_RECIPE';
 export const SET_RECIPES = '[RECIPES] SET_RECIPES'; 
 export const DELETE_RECIPE = '[RECIPES] DELETE_RECIPES';
 export const UPDATE_RECIPE = '[RECIPES] UPDATE_RECIPE';

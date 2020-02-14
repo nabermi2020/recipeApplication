@@ -5,6 +5,9 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../services/recipe.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Recipe } from '../recipe.model';
+import { Store } from '@ngrx/store';
+import * as fromAppState from './../../store/app.reducers';
+import * as RecipeActions  from './../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -19,7 +22,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private recipeService: RecipeService) { }
+              private recipeService: RecipeService,
+              private store: Store<fromAppState.AppState>) { }
 
   ngOnInit() {
     this.fetchRouteParams();
@@ -82,7 +86,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     if (this.editMode && this.editForm.valid) {
       this.recipeService.updateRecipe(this.id, newRecipe);
     } else if (!this.editMode && this.editForm.valid) {
-      this.recipeService.addRecipe(newRecipe);
+      this.store.dispatch( new RecipeActions.AddRecipe(newRecipe));
+      // this.recipeService.addRecipe(newRecipe);
     }
 
   }
