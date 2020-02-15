@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ShoppingListService } from 'src/app/shopping-list/services/shopping-list.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,40 +28,44 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
-  public addIngredientsToShoppingList(ingrediens: Array<Ingredient>): void {
-    this.shoppingListService.addIngredientsFromRecipeToList(ingrediens);
-  }
+  // public addIngredientsToShoppingList(ingrediens: Array<Ingredient>): void {
+  //   this.shoppingListService.addIngredientsFromRecipeToList(ingrediens);
+  // }
 
   public getRecipeById(id: number): Recipe{
     return this.recipes.slice()[id];
   }
 
-  public addRecipe(recipe: Recipe): void {
-    this.recipes.push(recipe);
-    this.recipesChanges.next(this.recipes.slice());
-  }
+  // public addRecipe(recipe: Recipe): void {
+  //   this.recipes.push(recipe);
+  //   this.recipesChanges.next(this.recipes.slice());
+  // }
 
-  public updateRecipe(index: number, recipe: Recipe): void {
-    this.recipes[index] = recipe;
-    this.recipesChanges.next(this.recipes.slice());
-  }
+  // public updateRecipe(index: number, recipe: Recipe): void {
+  //   this.recipes[index] = recipe;
+  //   this.recipesChanges.next(this.recipes.slice());
+  // }
 
-  public deleteRecipe(index: number): void {
-    this.recipes.splice(index, 1);
-    this.recipesChanges.next(this.recipes.slice());
-  }
+  // public deleteRecipe(index: number): void {
+  //   this.recipes.splice(index, 1);
+  //   this.recipesChanges.next(this.recipes.slice());
+  // }
 
   public putRecipesOnServer(): Observable<any> {
     return this.dataStoreService.putRecipesOnServer(this.recipes);
   }
 
-  public fetchRecipeFromServer(): void {
-    this.dataStoreService.getRecipesFromServer().subscribe(
-      (recipes: Array<Recipe>) => {
-        this.recipes = this.checkIngredients(recipes);
-        this.recipesChanges.next(this.recipes.slice());
-      }
-    );
+  public fetchRecipeFromServer(): Observable<Array<Recipe>> {
+    let recipesObservable = Observable.create((observer: Observer<Array<Recipe>>) => {
+      this.dataStoreService.getRecipesFromServer().subscribe(
+        (recipes: Array<Recipe>) => {
+          recipes = this.checkIngredients(recipes);
+          observer.next(recipes);
+        }
+      );
+    });
+ 
+    return recipesObservable;
   }
 
   public checkIngredients(recipes: Array<Recipe>): Array<Recipe> {

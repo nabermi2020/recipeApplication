@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from './../../store/app.reducers';
 import { Observable } from 'rxjs';
 import * as authState from './../../auth/store/auth.reducers';
+import * as RecipeActions from './../../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -30,11 +31,13 @@ export class HeaderComponent implements OnInit {
   }
 
    public saveRecipe(): void {
-     this.recipeService.putRecipesOnServer().subscribe();
+    this.store.dispatch( new RecipeActions.putRecipes()); 
+    //this.recipeService.putRecipesOnServer().subscribe();
    }
 
    public fetchRecipes(): void {
-     this.recipeService.fetchRecipeFromServer();
+     // this.recipeService.fetchRecipeFromServer();
+     this.store.dispatch( new RecipeActions.fetchRecipes());
    }
 
    public logOut(): void {

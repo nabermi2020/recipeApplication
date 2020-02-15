@@ -7,7 +7,9 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Recipe } from '../recipe.model';
 import { Store } from '@ngrx/store';
 import * as fromAppState from './../../store/app.reducers';
+import * as fromRecipes from './../store/recipe.reducers';
 import * as RecipeActions  from './../store/recipe.actions';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -23,14 +25,21 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,
-              private store: Store<fromAppState.AppState>) { }
+              private store: Store<fromRecipes.FeautureState>) { }
 
   ngOnInit() {
     this.fetchRouteParams();
   }
 
   public initEditForm(): void {
-    const recipe = this.recipeService.getRecipeById(this.id);
+    //const recipe = this.recipeService.getRecipeById(this.id);
+    let recipe;
+    this.store.select('recipes').pipe(take(1))
+      .subscribe(
+        (recipeState: fromRecipes.State) => {
+          recipe = recipeState.recipes[this.id];
+        }
+      )
     let recipeName: string;
     let recipeImagePath: string;
     let recipeDescription: string;
